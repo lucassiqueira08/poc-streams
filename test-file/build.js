@@ -82,6 +82,8 @@ const buildFile = async (batches, fileOperationDate, options) => {
 }
 
 const build = async (db, fileOperationDate, chunkSize, options = { env: 'prod' }) => {
+  console.time('EXEC')
+
   logger.info({
     message: 'Loading batches...',
     file: 'test',
@@ -99,7 +101,7 @@ const build = async (db, fileOperationDate, chunkSize, options = { env: 'prod' }
     // eslint-disable-next-line no-await-in-loop
     await buildFile(batchesChunk, fileOperationDate, options)
   }
-
+  console.timeEnd('EXEC')
   return null
 }
 

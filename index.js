@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
-const { run: runTestTask } = require("./test-file/task");
+// const { run: runTestTask } = require("./test-file/task");
+const { run: runTestTask } = require("./test-file-stream/task");
 
 const db = new Sequelize({
   dialect: "sqlite",
