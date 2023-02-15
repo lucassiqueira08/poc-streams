@@ -1,24 +1,25 @@
 const builder = require("./build");
 
-const logger = {
-  info: ({ message, ...rest }) => console.log({ message, ...rest, name: "FIDC-TEST-FILE" }),
-};
+const { helper: { commonLogger } } = require('../utils/helper')
+const logger = commonLogger('STREAM-TEST-FILE')
 
-const run = async (db, {
-  file_date: fileDate = new Date().toISOString().slice(0, 10),
-  maxLines = 1000000,
-}) => {
+const run = async (
+  db,
+  {
+    file_date: fileDate = new Date().toISOString().slice(0, 10),
+    maxLines = 1000000,
+  }
+) => {
   logger.info({
-    message: "Starting fidc/test-file"
+    message: "Starting stream-test-file",
   });
-  
+
   await builder.build(db, fileDate, maxLines);
 
   logger.info({
-    message: "[FIDC] TEST file was sent!",
+    message: "File was sent!",
     file_date: fileDate,
   });
 };
 
-
-module.exports = { run }
+module.exports = { run };

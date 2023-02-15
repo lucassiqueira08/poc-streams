@@ -1,5 +1,4 @@
-const _ = require('lodash')
-const moment = require('moment')
+const _ = require("lodash");
 
 exports.helper = {
   EOL: {
@@ -30,11 +29,22 @@ exports.helper = {
             field.value.toString().substring(0, fieldLength)
           );
         } else if (!field.value) {
-          return `${field.value}`
+          return `${field.value}`;
         } else {
           return field.value.char.toString().substring(0, fieldLength);
         }
       })
       .join("");
   },
+  logMemory: () => {
+    const formatMemoryUsage = (data) =>
+      `${Math.round((data / 1024 / 1024) * 100) / 100} MB`;
+    console.log(
+      `used memory: ${formatMemoryUsage(process.memoryUsage().heapUsed)}`,
+      `memory allocation: ${formatMemoryUsage(process.memoryUsage().heapTotal)}`
+    );
+  },
+  commonLogger: (name) => ({
+    info: ({ message, ...rest }) => console.log({ message, ...rest, name }),
+  })
 };

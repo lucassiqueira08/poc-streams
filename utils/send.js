@@ -1,52 +1,53 @@
-const Promise = require('bluebird')
-const fs = require('fs');
-const logger = {
-  info: ({ message, ...rest }) => console.log({ message, ...rest, name: "FIDC-TEST-FILE" }),
-};
+const Promise = require("bluebird");
+const fs = require("fs");
+
+const { helper: { commonLogger } } = require('../utils/helper')
+const logger = commonLogger('SFTP')
+
 const putFile = (path, content) => {
   return new Promise((resolve, reject) => {
-    const stream = fs.createWriteStream(path)
+    const stream = fs.createWriteStream(path);
 
-    stream.on('error', (err) => {
-      reject(err)
-    })
+    stream.on("error", (err) => {
+      reject(err);
+    });
 
-    stream.on('close', () => {
-      resolve()
-    })
+    stream.on("close", () => {
+      resolve();
+    });
 
-    stream.write(content)
-    stream.end()
+    stream.write(content);
+    stream.end();
 
-    stream.on('finish', () => {
+    stream.on("finish", () => {
       logger.info({ message: "Write completed." });
     });
-  })
-}
+  });
+};
 
-exports.upload = (fidcFile, fakeUpload) => {
-  return doUpload(fidcFile, fakeUpload)
+exports.upload = (file, fakeUpload) => {
+  return doUpload(file, fakeUpload)
     .then(uploadSuccess)
-    .catch(uploadFailed(fidcFile))
-    .return(fidcFile)
-}
+    .catch(uploadFailed(file))
+    .return(file);
+};
 
-const doUpload = (fidcFile, fakeUpload) => {
+const doUpload = (file, fakeUpload) => {
   return new Promise((resolve, reject) => {
-    const path = `./`
-    const filePath = path + fidcFile.filename
+    const path = `./`;
+    const filePath = path + file.filename;
 
-    logger.info({ message: '[SFTP FIDC] Doing Upload....' });
+    logger.info({ message: "[SFTP FILE] Doing Upload...." });
 
-    return putFile(filePath, fidcFile.content)
-      .then(() => resolve(fidcFile))
-      .catch(err => reject(err))
-  })
-}
+    return putFile(filePath, file.content)
+      .then(() => resolve(file))
+      .catch((err) => reject(err));
+  });
+};
 
-const uploadSuccess = fidcFile => Promise.resolve({ status: 'sent' })
+const uploadSuccess = () => Promise.resolve({ status: "sent" });
 
-const uploadFailed = fidcFile => (error) => {
-  console.log(`[SFTP FIDC] Error: ${error}`)
-  return Promise.reject({ status: 'failed_send' })
-}
+const uploadFailed = () => (error) => {
+  console.log(`[SFTP FILE] Error: ${error}`);
+  return Promise.reject({ status: "failed_send" });
+};

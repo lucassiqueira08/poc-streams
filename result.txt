@@ -1,0 +1,24 @@
+PROCESSANDO STREAM (7,8 milhões de arquivos)
+----
+7832547 lines
+EXEC: 6:11.816 (m:ss.mmm)
+
+> wc -l STREAM-0070PGME-2023-02-15-TEST-60730728143-001.rem
+7832548 STREAM-0070PGME-2023-02-15-TEST-60730728143-001.rem
+Tamanho arquivo: 2,5GB
+Memoria media: 505MB (Constante)
+
+
+PROCESSANDO COMO O ATUAL (1,5 milhões de registros)
+----
+EXEC: 53.380s (m:ss.mmm)
+1500003 lines (2 arquivos) 
+
+> wc -l 070PGME-2023-02-15-TEST-10566133861-001.rem 
+1000002 070PGME-2023-02-15-TEST-10566133861-001.rem
+
+> wc -l 070PGME-2023-02-15-TEST-20103877164-001.rem 
+500003 070PGME-2023-02-15-TEST-20103877164-001.rem
+
+Tamanho arquivos: 483MB
+Memoria media: 929.22MB (Picos de 1,5GB)

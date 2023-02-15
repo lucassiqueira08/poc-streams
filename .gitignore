@@ -134,3 +134,4 @@ dist
 .vscode/
 package-lock.json
 database.sqlite
+.clinic/

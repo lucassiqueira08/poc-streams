@@ -1,73 +1,73 @@
-const helper = '../utils/helper.js'
-const moment = require('moment')
+const helper = "../utils/helper.js";
+const moment = require("moment");
 
-exports.buildHeader = (fileType, fidcFileId, fileDate) => {
-  const razaoSocial = 'Pagarme Pagamentos SA'
-  const companyCnpj = '18727053000174'
+exports.buildHeader = (fileType, fileId, fileDate) => {
+  const razaoSocial = "XPTO Pagamentos SA";
+  const companyCnpj = "12345678910";
 
-  const razaoSocialFidc = 'TAPSO FIDC NP'
-  const companyCnpjFidc = '26287464000114'
+  const razaoSocial2 = "XPTO 2";
+  const companyCnpj2 = "10987654321";
 
   return [
     {
       start: 0,
       end: 1,
-      value: '10'
+      value: "10",
     },
     {
       start: 2,
       end: 11,
-      value: fidcFileId
+      value: fileId,
     },
     {
       start: 12,
       end: 16,
-      value: fileType
+      value: fileType,
     },
     {
       start: 17,
       end: 24,
-      value: moment().format('YYYYMMDD')
+      value: moment().format("YYYYMMDD"),
     },
     {
       start: 25,
       end: 54,
-      value: ''
+      value: "",
     },
     {
       start: 55,
       end: 94,
-      value: razaoSocial
+      value: razaoSocial,
     },
     {
       start: 95,
       end: 108,
-      value: companyCnpj
+      value: companyCnpj,
     },
     {
       start: 109,
       end: 148,
-      value: razaoSocialFidc
+      value: razaoSocial2,
     },
     {
       start: 149,
       end: 162,
-      value: companyCnpjFidc
+      value: companyCnpj2,
     },
     {
       start: 163,
       end: 191,
-      value: ''
+      value: "",
     },
     {
       start: 192,
       end: 193,
-      value: helper.EOL
-    }
-  ]
-}
+      value: helper.EOL,
+    },
+  ];
+};
 
-exports.run = (fileType, fidcFileId, fileDate) => {
-  const headerContent = exports.buildHeader(fileType, fidcFileId, fileDate)
-  return helper.generateLineFromFields(headerContent)
-}
+exports.run = (fileType, fileId, fileDate) => {
+  const headerContent = exports.buildHeader(fileType, fileId, fileDate);
+  return helper.generateLineFromFields(headerContent);
+};
